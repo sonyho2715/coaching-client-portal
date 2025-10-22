@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Target, Circle, CheckCircle, Award, TrendingUp, Star, Sparkles, Heart, Users, Briefcase, Mountain, Book, PartyPopper, Globe } from 'lucide-react';
+import { Target, Circle, CheckCircle, Award, TrendingUp, Star, Sparkles, Heart, Users, Briefcase, Mountain, Book, PartyPopper, Globe, Zap, Calendar, Trophy, ArrowRight, Clock, BarChart3 } from 'lucide-react';
 
 function App() {
   const [clientData, setClientData] = useState({
@@ -74,259 +74,305 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      {/* Hero Header */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzBoLTJWMGgydjMwem0wIDMwdi0yaC0ydjJoMnptMC0xNXYtMmgtMnYyaDJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-          <div className={`text-center transform transition-all duration-1000 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-6 py-2 mb-6">
-              <Star className="w-5 h-5 text-yellow-300" />
-              <span className="text-white font-medium">Your Growth Journey</span>
+    <div className="min-h-screen bg-slate-50">
+      {/* Navigation */}
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-lg bg-white/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Sparkles className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-gray-900">My Journey</h2>
+                <p className="text-xs text-gray-500">with Coach Sony Ho</p>
+              </div>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
-              Welcome back, <span className="text-yellow-300">{clientData.name}</span>!
-            </h1>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              Track your progress, celebrate your wins, and continue your journey to personal excellence.
-            </p>
+            <div className="flex items-center gap-3">
+              <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full">
+                <Calendar className="w-4 h-4 text-purple-600" />
+                <span className="text-sm font-medium text-gray-700">Next Session: Coming Soon</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-slate-50"></div>
+      </nav>
+
+      {/* Hero Section */}
+      <div className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+          <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className={`transform transition-all duration-1000 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <div className="flex-1 text-white">
+                <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-4">
+                  <Zap className="w-4 h-4 text-yellow-300" />
+                  <span className="text-sm font-semibold">Active Journey</span>
+                </div>
+                <h1 className="text-4xl sm:text-5xl font-bold mb-3">
+                  Hello, {clientData.name}! 👋
+                </h1>
+                <p className="text-lg text-white/90 mb-6 max-w-xl">
+                  You're making incredible progress. Here's your personal growth dashboard.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <button className="flex items-center gap-2 px-6 py-3 bg-white text-purple-600 rounded-xl font-semibold hover:shadow-lg transition-all hover:scale-105">
+                    <BarChart3 className="w-5 h-5" />
+                    View Full Report
+                  </button>
+                  <button className="flex items-center gap-2 px-6 py-3 bg-white/20 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-white/30 transition-all">
+                    <Clock className="w-5 h-5" />
+                    Book Session
+                  </button>
+                </div>
+              </div>
+              <div className="flex-shrink-0">
+                <div className="relative w-48 h-48 sm:w-56 sm:h-56">
+                  <div className="absolute inset-0 bg-white/20 backdrop-blur-xl rounded-3xl transform rotate-6"></div>
+                  <div className="absolute inset-0 bg-white/10 backdrop-blur-xl rounded-3xl transform -rotate-6"></div>
+                  <div className="relative bg-white/30 backdrop-blur-xl rounded-3xl p-8 flex flex-col items-center justify-center h-full border border-white/40">
+                    <Trophy className="w-20 h-20 text-yellow-300 mb-3" />
+                    <div className="text-5xl font-bold text-white mb-1">{clientData.readinessScore}%</div>
+                    <div className="text-sm font-semibold text-white/90">Ready to Succeed</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 pb-16 space-y-8">
-        {/* Stats Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Readiness Score Card */}
-          <div className={`group bg-white rounded-3xl shadow-xl p-8 border-2 border-transparent hover:border-emerald-200 transition-all duration-300 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'} hover:scale-105`}>
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp className={`w-5 h-5 ${scoreLevel.color}`} />
-                  <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Readiness</span>
-                </div>
-                <h3 className={`text-sm font-medium ${scoreLevel.color}`}>{scoreLevel.label}</h3>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+        {/* Quick Stats */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 transform transition-all duration-500 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+            <div className="flex items-center justify-between mb-3">
+              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${scoreLevel.bgColor} flex items-center justify-center`}>
+                <TrendingUp className="w-6 h-6 text-white" />
               </div>
-              <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:rotate-12 transition-transform">
-                <CheckCircle className="w-9 h-9 text-white" />
-              </div>
+              <span className={`text-xs font-bold px-2 py-1 rounded-full ${scoreLevel.color} bg-opacity-10`}>
+                {scoreLevel.label}
+              </span>
             </div>
-            <div className="mb-4">
-              <div className="flex items-baseline gap-2">
-                <span className="text-5xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
-                  {clientData.readinessScore}
-                </span>
-                <span className="text-2xl font-semibold text-gray-400">%</span>
-              </div>
-            </div>
-            <div className="relative w-full bg-gray-100 rounded-full h-3 overflow-hidden">
-              <div
-                className={`absolute inset-y-0 left-0 bg-gradient-to-r ${scoreLevel.bgColor} to-emerald-500 rounded-full transition-all duration-1000 shadow-sm`}
-                style={{ width: mounted ? `${clientData.readinessScore}%` : '0%' }}
-              ></div>
-            </div>
-            <p className="text-sm text-gray-600 mt-4">Your commitment to growth</p>
+            <div className="text-3xl font-bold text-gray-900 mb-1">{clientData.readinessScore}%</div>
+            <div className="text-sm text-gray-500 font-medium">Readiness</div>
           </div>
 
-          {/* Life Balance Card */}
-          <div className={`group bg-white rounded-3xl shadow-xl p-8 border-2 border-transparent hover:border-purple-200 transition-all duration-300 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'} hover:scale-105`} style={{ transitionDelay: '100ms' }}>
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Circle className={`w-5 h-5 ${balanceLevel.color}`} />
-                  <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Balance</span>
-                </div>
-                <h3 className={`text-sm font-medium ${balanceLevel.color}`}>{balanceLevel.label}</h3>
+          <div className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 transform transition-all duration-500 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '50ms' }}>
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                <Circle className="w-6 h-6 text-white" />
               </div>
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:rotate-12 transition-transform">
-                <Circle className="w-9 h-9 text-white" />
-              </div>
+              <span className={`text-xs font-bold px-2 py-1 rounded-full ${balanceLevel.color} bg-opacity-10`}>
+                {balanceLevel.label}
+              </span>
             </div>
-            <div className="mb-4">
-              <div className="flex items-baseline gap-2">
-                <span className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
-                  {wheelAverage.toFixed(1)}
-                </span>
-                <span className="text-2xl font-semibold text-gray-400">/10</span>
-              </div>
-            </div>
-            <div className="relative w-full bg-gray-100 rounded-full h-3 overflow-hidden">
-              <div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-1000 shadow-sm"
-                style={{ width: mounted ? `${(wheelAverage / 10) * 100}%` : '0%' }}
-              ></div>
-            </div>
-            <p className="text-sm text-gray-600 mt-4">Overall life satisfaction</p>
+            <div className="text-3xl font-bold text-gray-900 mb-1">{wheelAverage.toFixed(1)}/10</div>
+            <div className="text-sm text-gray-500 font-medium">Life Balance</div>
           </div>
 
-          {/* Action Items Card */}
-          <div className={`group bg-white rounded-3xl shadow-xl p-8 border-2 border-transparent hover:border-blue-200 transition-all duration-300 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'} hover:scale-105 sm:col-span-2 lg:col-span-1`} style={{ transitionDelay: '200ms' }}>
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <Target className="w-5 h-5 text-blue-600" />
-                  <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Actions</span>
-                </div>
-                <h3 className="text-sm font-medium text-blue-600">Active Goals</h3>
-              </div>
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:rotate-12 transition-transform">
-                <Target className="w-9 h-9 text-white" />
+          <div className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 transform transition-all duration-500 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '100ms' }}>
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                <Target className="w-6 h-6 text-white" />
               </div>
             </div>
-            <div className="mb-4">
-              <div className="flex items-baseline gap-2">
-                <span className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">
-                  {clientData.actionItems.length}
-                </span>
-                <span className="text-2xl font-semibold text-gray-400">tasks</span>
+            <div className="text-3xl font-bold text-gray-900 mb-1">{clientData.actionItems.length}</div>
+            <div className="text-sm text-gray-500 font-medium">Action Items</div>
+          </div>
+
+          <div className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 transform transition-all duration-500 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '150ms' }}>
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
+                <Star className="w-6 h-6 text-white" />
               </div>
             </div>
-            <div className="flex items-center gap-2 mt-6">
-              <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-blue-500 to-blue-400 rounded-full" style={{ width: '0%' }}></div>
-              </div>
-              <span className="text-xs font-medium text-gray-500">0% done</span>
-            </div>
-            <p className="text-sm text-gray-600 mt-4">Focus areas this week</p>
+            <div className="text-3xl font-bold text-gray-900 mb-1">0</div>
+            <div className="text-sm text-gray-500 font-medium">Milestones</div>
           </div>
         </div>
 
-        {/* Wheel of Life */}
-        <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
-                <Circle className="w-7 h-7 text-white" />
-              </div>
+        {/* Two Column Layout */}
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Wheel of Life */}
+          <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div className="flex items-center justify-between mb-6">
               <div>
-                <h3 className="text-2xl font-bold text-gray-800">Wheel of Life</h3>
-                <p className="text-sm text-gray-500">Balance across all life areas</p>
+                <h3 className="text-xl font-bold text-gray-900">Wheel of Life</h3>
+                <p className="text-sm text-gray-500 mt-1">Your life balance overview</p>
               </div>
+              <button className="text-sm font-semibold text-purple-600 hover:text-purple-700 flex items-center gap-1">
+                View Details
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {lifeAreas.map(({ key, label, icon: Icon, color, textColor }, index) => (
+                <div
+                  key={key}
+                  className={`transform transition-all duration-500 ${mounted ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'}`}
+                  style={{ transitionDelay: `${200 + index * 30}ms` }}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center shadow-sm`}>
+                        <Icon className="w-5 h-5 text-white" />
+                      </div>
+                      <span className="font-medium text-gray-700">{label}</span>
+                    </div>
+                    <span className={`text-xl font-bold ${textColor}`}>
+                      {clientData.wheelOfLife[key]}/10
+                    </span>
+                  </div>
+                  <div className="relative w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                    <div
+                      className={`absolute inset-y-0 left-0 bg-gradient-to-r ${color} rounded-full transition-all duration-1000`}
+                      style={{ width: mounted ? `${(clientData.wheelOfLife[key] / 10) * 100}%` : '0%' }}
+                    ></div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {lifeAreas.map(({ key, label, icon: Icon, color, textColor, bgColor }, index) => (
-              <div
-                key={key}
-                className={`group relative bg-gradient-to-br ${bgColor} to-white rounded-2xl p-6 border-2 border-gray-100 hover:border-gray-200 transition-all duration-300 transform hover:scale-105 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
-                style={{ transitionDelay: `${300 + index * 50}ms` }}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className={`w-12 h-12 bg-gradient-to-br ${color} rounded-xl flex items-center justify-center shadow-md transform group-hover:rotate-12 transition-transform`}>
-                    <Icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="text-right">
-                    <div className={`text-3xl font-bold ${textColor}`}>
-                      {clientData.wheelOfLife[key]}
-                    </div>
-                    <div className="text-xs text-gray-500 font-medium">/10</div>
-                  </div>
-                </div>
+          {/* Progress Summary Card */}
+          <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl shadow-lg p-6 text-white">
+            <div className="flex items-center gap-2 mb-4">
+              <Trophy className="w-6 h-6 text-yellow-300" />
+              <h3 className="text-lg font-bold">This Week</h3>
+            </div>
 
-                <h4 className={`font-semibold ${textColor} mb-3 text-sm`}>{label}</h4>
-
-                <div className="relative w-full bg-gray-200/60 rounded-full h-2 overflow-hidden">
-                  <div
-                    className={`absolute inset-y-0 left-0 bg-gradient-to-r ${color} rounded-full transition-all duration-1000`}
-                    style={{ width: mounted ? `${(clientData.wheelOfLife[key] / 10) * 100}%` : '0%' }}
-                  ></div>
+            <div className="space-y-4 mb-6">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                <div className="text-sm text-white/80 mb-1">Tasks Completed</div>
+                <div className="text-3xl font-bold">0/{clientData.actionItems.length}</div>
+                <div className="mt-3 w-full bg-white/20 rounded-full h-2">
+                  <div className="bg-white h-2 rounded-full" style={{ width: '0%' }}></div>
                 </div>
               </div>
-            ))}
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                <div className="text-sm text-white/80 mb-1">Readiness Score</div>
+                <div className="flex items-baseline gap-2">
+                  <div className="text-3xl font-bold">{clientData.readinessScore}%</div>
+                  <div className="flex items-center gap-1 text-green-300 text-sm font-semibold">
+                    <TrendingUp className="w-4 h-4" />
+                    <span>+{clientData.readinessScore}%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-white/20">
+              <div className="flex items-center gap-2 text-sm mb-2">
+                <Calendar className="w-4 h-4" />
+                <span className="text-white/90">Next Coaching Session</span>
+              </div>
+              <div className="text-lg font-semibold">Coming Soon</div>
+              <button className="mt-3 w-full bg-white text-purple-600 rounded-lg py-2.5 font-semibold hover:bg-white/90 transition-colors">
+                Schedule Now
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Action Plan */}
-        <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center">
-                <CheckCircle className="w-7 h-7 text-white" />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-gray-800">Your Action Plan</h3>
-                <p className="text-sm text-gray-500">Steps to achieve your goals</p>
-              </div>
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h3 className="text-xl font-bold text-gray-900">Action Plan</h3>
+              <p className="text-sm text-gray-500 mt-1">Your weekly focus areas</p>
             </div>
+            <button className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1">
+              Add Task
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
 
           {clientData.actionItems.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {clientData.actionItems.map((item, idx) => (
                 <div
                   key={idx}
-                  className={`group flex items-start gap-4 p-5 bg-gradient-to-r from-gray-50 to-emerald-50/30 rounded-2xl border-2 border-gray-100 hover:border-emerald-200 transition-all duration-300 transform hover:scale-[1.02] ${mounted ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'}`}
-                  style={{ transitionDelay: `${700 + idx * 50}ms` }}
+                  className={`group flex items-center gap-3 p-4 bg-gray-50 hover:bg-blue-50/50 rounded-xl transition-all duration-300 cursor-pointer border border-transparent hover:border-blue-200 ${mounted ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'}`}
+                  style={{ transitionDelay: `${400 + idx * 40}ms` }}
                 >
-                  <div className="flex-shrink-0 mt-0.5">
-                    <input
-                      type="checkbox"
-                      className="w-6 h-6 text-emerald-600 bg-white border-2 border-gray-300 rounded-lg cursor-pointer focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all"
-                    />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-gray-700 font-medium leading-relaxed">{item}</p>
-                  </div>
-                  <div className="flex-shrink-0">
-                    <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Target className="w-4 h-4 text-emerald-600" />
-                    </div>
+                  <input
+                    type="checkbox"
+                    className="w-5 h-5 text-blue-600 bg-white border-2 border-gray-300 rounded-md cursor-pointer focus:ring-2 focus:ring-blue-500 transition-all"
+                  />
+                  <span className="flex-1 text-gray-700 font-medium">{item}</span>
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2">
+                    <button className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center hover:bg-blue-200 transition-colors">
+                      <Target className="w-4 h-4 text-blue-600" />
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-16">
-              <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl flex items-center justify-center mx-auto mb-6">
-                <Target className="w-12 h-12 text-gray-400" />
+            <div className="text-center py-12">
+              <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Target className="w-8 h-8 text-gray-400" />
               </div>
-              <h4 className="text-xl font-semibold text-gray-700 mb-2">No action items yet</h4>
-              <p className="text-gray-500 max-w-md mx-auto">Your coach will work with you to create personalized action steps in your next session.</p>
+              <h4 className="text-lg font-semibold text-gray-700 mb-2">No action items yet</h4>
+              <p className="text-gray-500 text-sm max-w-sm mx-auto mb-4">
+                Your coach will work with you to create personalized action steps.
+              </p>
+              <button className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                Schedule Session
+              </button>
             </div>
           )}
         </div>
 
-        {/* Motivational Quote */}
-        <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-3xl shadow-2xl p-12 text-white">
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        {/* Inspirational Banner */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 sm:p-12">
+          <div className="absolute inset-0 bg-black/5"></div>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
 
-          <div className="relative text-center">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl mb-8 shadow-lg">
-              <Award className="w-10 h-10 text-yellow-300" />
-            </div>
-            <blockquote className="text-3xl sm:text-4xl font-bold mb-6 leading-tight">
-              "The only impossible journey is the one you never begin."
-            </blockquote>
-            <p className="text-xl font-medium text-white/90 mb-8">— Tony Robbins</p>
-            <div className="flex items-center justify-center gap-2 pt-8 border-t border-white/20">
-              <Star className="w-5 h-5 text-yellow-300" />
-              <p className="text-lg font-semibold">Keep up the amazing work!</p>
-              <Star className="w-5 h-5 text-yellow-300" />
+          <div className="relative">
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <div className="flex-shrink-0">
+                <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                  <Award className="w-12 h-12 text-yellow-300" />
+                </div>
+              </div>
+              <div className="flex-1 text-center sm:text-left">
+                <blockquote className="text-2xl sm:text-3xl font-bold text-white mb-2 leading-tight">
+                  "The only impossible journey is the one you never begin."
+                </blockquote>
+                <p className="text-lg text-white/90 font-medium">— Tony Robbins</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="bg-white border-t mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-                <Heart className="w-5 h-5 text-white" />
+      <footer className="bg-white border-t">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-white" />
               </div>
-              <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Coach Sony Ho
-              </span>
+              <div>
+                <div className="font-bold text-gray-900">Coach Sony Ho</div>
+                <div className="text-xs text-gray-500">Your Growth Partner</div>
+              </div>
             </div>
-            <p className="text-gray-600 text-sm mb-2">Your Personal Growth Partner</p>
-            <p className="text-gray-400 text-xs">© {new Date().getFullYear()} All rights reserved</p>
+            <div className="text-sm text-gray-500">
+              © {new Date().getFullYear()} All rights reserved
+            </div>
           </div>
         </div>
       </footer>
