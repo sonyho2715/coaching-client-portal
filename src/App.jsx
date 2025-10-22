@@ -24,6 +24,29 @@ function App() {
           actionItems: parsed.actionPlan ? parsed.actionPlan.split('\n').filter(Boolean) : []
         });
       } catch (e) { console.error('Error:', e); }
+    } else {
+      // Demo data to showcase the UI
+      setClientData({
+        name: 'Sarah',
+        readinessScore: 78,
+        wheelOfLife: {
+          spirituality: 7,
+          career: 8,
+          family: 6,
+          relationships: 7,
+          health: 5,
+          personal: 8,
+          leisure: 6,
+          contribution: 7
+        },
+        actionItems: [
+          'Complete morning meditation practice 3x this week',
+          'Schedule coffee meeting with mentor by Friday',
+          'Finish online course module on leadership',
+          'Plan family weekend activity',
+          'Attend yoga class twice this week'
+        ]
+      });
     }
   }, []);
 
