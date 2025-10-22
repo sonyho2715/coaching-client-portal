@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Target, Circle, CheckCircle, Award, TrendingUp, Star, Sparkles, Heart, Users, Briefcase, Mountain, Book, PartyPopper, Globe, Zap, Calendar, Trophy, ArrowRight, Clock, BarChart3 } from 'lucide-react';
+import { Target, Circle, CheckCircle, Award, TrendingUp, Star, Sparkles, Heart, Users, Briefcase, Mountain, Book, PartyPopper, Globe, Zap, Calendar, Trophy, ArrowRight, Clock, BarChart3, Lightbulb, AlertCircle, ChevronRight, X } from 'lucide-react';
 
 function App() {
   const [clientData, setClientData] = useState({
@@ -9,9 +9,20 @@ function App() {
     actionItems: []
   });
   const [mounted, setMounted] = useState(false);
+  const [completedTasks, setCompletedTasks] = useState([]);
+  const [showInsights, setShowInsights] = useState(true);
 
   useEffect(() => {
     setMounted(true);
+
+    // Load completed tasks
+    const savedCompleted = localStorage.getItem('completed_tasks');
+    if (savedCompleted) {
+      try {
+        setCompletedTasks(JSON.parse(savedCompleted));
+      } catch (e) { console.error('Error loading completed tasks:', e); }
+    }
+
     const savedData = localStorage.getItem('coaching_current_session');
     if (savedData) {
       try {
@@ -50,6 +61,71 @@ function App() {
     }
   }, []);
 
+  const toggleTask = (index) => {
+    const newCompleted = completedTasks.includes(index)
+      ? completedTasks.filter(i => i !== index)
+      : [...completedTasks, index];
+    setCompletedTasks(newCompleted);
+    localStorage.setItem('completed_tasks', JSON.stringify(newCompleted));
+  };
+
+  const getTimeGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return '🌅 Good morning';
+    if (hour < 18) return '☀️ Good afternoon';
+    return '🌙 Good evening';
+  };
+
+  const getLowestAreas = () => {
+    const areas = Object.entries(clientData.wheelOfLife)
+      .sort(([,a], [,b]) => a - b)
+      .slice(0, 2);
+    return areas;
+  };
+
+  const getInsights = () => {
+    const insights = [];
+    const lowest = getLowestAreas();
+
+    if (clientData.readinessScore >= 80) {
+      insights.push({
+        type: 'success',
+        icon: Trophy,
+        title: 'Excellent Readiness!',
+        message: 'You\'re showing strong commitment. Keep this momentum going!'
+      });
+    } else if (clientData.readinessScore < 50) {
+      insights.push({
+        type: 'warning',
+        icon: AlertCircle,
+        title: 'Let\'s boost your readiness',
+        message: 'Consider scheduling a session to overcome any blockers.'
+      });
+    }
+
+    if (lowest[0] && lowest[0][1] < 6) {
+      const areaName = lifeAreas.find(a => a.key === lowest[0][0])?.label;
+      insights.push({
+        type: 'info',
+        icon: Lightbulb,
+        title: `Focus on ${areaName}`,
+        message: 'This area needs attention. Let\'s create an action plan together.'
+      });
+    }
+
+    if (completedTasks.length > 0 && clientData.actionItems.length > 0) {
+      const progress = Math.round((completedTasks.length / clientData.actionItems.length) * 100);
+      insights.push({
+        type: 'success',
+        icon: Star,
+        title: `${progress}% tasks completed!`,
+        message: 'Great progress this week. You\'re building excellent habits.'
+      });
+    }
+
+    return insights;
+  };
+
   const wheelAverage = Object.values(clientData.wheelOfLife).reduce((a, b) => a + b, 0) / 8;
 
   const getScoreLevel = (score) => {
@@ -61,6 +137,10 @@ function App() {
 
   const scoreLevel = getScoreLevel(clientData.readinessScore);
   const balanceLevel = getScoreLevel(wheelAverage * 10);
+  const insights = getInsights();
+  const completionRate = clientData.actionItems.length > 0
+    ? Math.round((completedTasks.length / clientData.actionItems.length) * 100)
+    : 0;
 
   const lifeAreas = [
     { key: 'spirituality', label: 'Spirituality', icon: Sparkles, color: 'from-purple-500 to-purple-600', textColor: 'text-purple-600', bgColor: 'bg-purple-50' },
@@ -113,13 +193,16 @@ function App() {
               <div className="flex-1 text-white">
                 <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-4">
                   <Zap className="w-4 h-4 text-yellow-300" />
-                  <span className="text-sm font-semibold">Active Journey</span>
+                  <span className="text-sm font-semibold">{getTimeGreeting()}</span>
                 </div>
                 <h1 className="text-4xl sm:text-5xl font-bold mb-3">
-                  Hello, {clientData.name}! 👋
+                  Welcome back, {clientData.name}!
                 </h1>
                 <p className="text-lg text-white/90 mb-6 max-w-xl">
-                  You're making incredible progress. Here's your personal growth dashboard.
+                  {completionRate > 0
+                    ? `You've completed ${completionRate}% of your tasks. Keep up the great work!`
+                    : "You're making incredible progress. Here's your personal growth dashboard."
+                  }
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <button className="flex items-center gap-2 px-6 py-3 bg-white text-purple-600 rounded-xl font-semibold hover:shadow-lg transition-all hover:scale-105">
@@ -199,6 +282,45 @@ function App() {
           </div>
         </div>
 
+        {/* Insights Section */}
+        {insights.length > 0 && showInsights && (
+          <div className={`bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 border-2 border-blue-100 transform transition-all duration-500 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`} style={{ transitionDelay: '200ms' }}>
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Lightbulb className="w-5 h-5 text-purple-600" />
+                <h3 className="font-bold text-gray-900">Insights & Recommendations</h3>
+              </div>
+              <button
+                onClick={() => setShowInsights(false)}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {insights.map((insight, idx) => {
+                const Icon = insight.icon;
+                const colorClass = insight.type === 'success' ? 'bg-green-100 text-green-700 border-green-200'
+                  : insight.type === 'warning' ? 'bg-amber-100 text-amber-700 border-amber-200'
+                  : 'bg-blue-100 text-blue-700 border-blue-200';
+
+                return (
+                  <div key={idx} className={`${colorClass} rounded-xl p-4 border-2`}>
+                    <div className="flex items-start gap-3">
+                      <Icon className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-sm mb-1">{insight.title}</h4>
+                        <p className="text-xs opacity-90">{insight.message}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Two Column Layout */}
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Wheel of Life */}
@@ -253,20 +375,34 @@ function App() {
             <div className="space-y-4 mb-6">
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
                 <div className="text-sm text-white/80 mb-1">Tasks Completed</div>
-                <div className="text-3xl font-bold">0/{clientData.actionItems.length}</div>
+                <div className="text-3xl font-bold">{completedTasks.length}/{clientData.actionItems.length}</div>
                 <div className="mt-3 w-full bg-white/20 rounded-full h-2">
-                  <div className="bg-white h-2 rounded-full" style={{ width: '0%' }}></div>
+                  <div
+                    className="bg-white h-2 rounded-full transition-all duration-500"
+                    style={{ width: `${completionRate}%` }}
+                  ></div>
                 </div>
+                {completionRate > 0 && (
+                  <div className="mt-2 text-xs text-white/90 font-medium">{completionRate}% complete!</div>
+                )}
               </div>
 
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                <div className="text-sm text-white/80 mb-1">Readiness Score</div>
+                <div className="text-sm text-white/80 mb-1">Readiness Level</div>
                 <div className="flex items-baseline gap-2">
                   <div className="text-3xl font-bold">{clientData.readinessScore}%</div>
-                  <div className="flex items-center gap-1 text-green-300 text-sm font-semibold">
-                    <TrendingUp className="w-4 h-4" />
-                    <span>+{clientData.readinessScore}%</span>
-                  </div>
+                  {clientData.readinessScore >= 70 && (
+                    <div className="flex items-center gap-1 text-green-300 text-sm font-semibold">
+                      <TrendingUp className="w-4 h-4" />
+                      <span>{scoreLevel.label}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="mt-3 w-full bg-white/20 rounded-full h-2">
+                  <div
+                    className={`bg-gradient-to-r ${scoreLevel.bgColor} h-2 rounded-full transition-all duration-500`}
+                    style={{ width: `${clientData.readinessScore}%` }}
+                  ></div>
                 </div>
               </div>
             </div>
@@ -299,24 +435,41 @@ function App() {
 
           {clientData.actionItems.length > 0 ? (
             <div className="space-y-2">
-              {clientData.actionItems.map((item, idx) => (
-                <div
-                  key={idx}
-                  className={`group flex items-center gap-3 p-4 bg-gray-50 hover:bg-blue-50/50 rounded-xl transition-all duration-300 cursor-pointer border border-transparent hover:border-blue-200 ${mounted ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'}`}
-                  style={{ transitionDelay: `${400 + idx * 40}ms` }}
-                >
-                  <input
-                    type="checkbox"
-                    className="w-5 h-5 text-blue-600 bg-white border-2 border-gray-300 rounded-md cursor-pointer focus:ring-2 focus:ring-blue-500 transition-all"
-                  />
-                  <span className="flex-1 text-gray-700 font-medium">{item}</span>
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2">
-                    <button className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center hover:bg-blue-200 transition-colors">
-                      <Target className="w-4 h-4 text-blue-600" />
-                    </button>
+              {clientData.actionItems.map((item, idx) => {
+                const isCompleted = completedTasks.includes(idx);
+                return (
+                  <div
+                    key={idx}
+                    className={`group flex items-center gap-3 p-4 rounded-xl transition-all duration-300 border-2 ${mounted ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'} ${
+                      isCompleted
+                        ? 'bg-green-50/50 border-green-200 opacity-75'
+                        : 'bg-gray-50 border-transparent hover:bg-blue-50/50 hover:border-blue-200 cursor-pointer'
+                    }`}
+                    style={{ transitionDelay: `${400 + idx * 40}ms` }}
+                    onClick={() => toggleTask(idx)}
+                  >
+                    <div className="flex-shrink-0">
+                      <input
+                        type="checkbox"
+                        checked={isCompleted}
+                        onChange={() => toggleTask(idx)}
+                        className="w-5 h-5 text-blue-600 bg-white border-2 border-gray-300 rounded-md cursor-pointer focus:ring-2 focus:ring-blue-500 transition-all"
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                    </div>
+                    <span className={`flex-1 font-medium transition-all ${isCompleted ? 'text-gray-400 line-through' : 'text-gray-700'}`}>
+                      {item}
+                    </span>
+                    {isCompleted ? (
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    ) : (
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2">
+                        <ChevronRight className="w-5 h-5 text-gray-400" />
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-12">
