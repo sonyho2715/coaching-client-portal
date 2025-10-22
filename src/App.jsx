@@ -12,6 +12,18 @@ function App() {
   const [completedTasks, setCompletedTasks] = useState([]);
   const [showInsights, setShowInsights] = useState(true);
 
+  // Life areas configuration - defined here so it can be used in helper functions
+  const lifeAreas = [
+    { key: 'spirituality', label: 'Spirituality', icon: Sparkles, color: 'from-purple-500 to-purple-600', textColor: 'text-purple-600', bgColor: 'bg-purple-50' },
+    { key: 'career', label: 'Career', icon: Briefcase, color: 'from-blue-500 to-blue-600', textColor: 'text-blue-600', bgColor: 'bg-blue-50' },
+    { key: 'family', label: 'Family', icon: Users, color: 'from-green-500 to-green-600', textColor: 'text-green-600', bgColor: 'bg-green-50' },
+    { key: 'relationships', label: 'Relationships', icon: Heart, color: 'from-pink-500 to-pink-600', textColor: 'text-pink-600', bgColor: 'bg-pink-50' },
+    { key: 'health', label: 'Health & Fitness', icon: Mountain, color: 'from-red-500 to-red-600', textColor: 'text-red-600', bgColor: 'bg-red-50' },
+    { key: 'personal', label: 'Personal Growth', icon: Book, color: 'from-amber-500 to-amber-600', textColor: 'text-amber-600', bgColor: 'bg-amber-50' },
+    { key: 'leisure', label: 'Fun & Leisure', icon: PartyPopper, color: 'from-indigo-500 to-indigo-600', textColor: 'text-indigo-600', bgColor: 'bg-indigo-50' },
+    { key: 'contribution', label: 'Contribution', icon: Globe, color: 'from-teal-500 to-teal-600', textColor: 'text-teal-600', bgColor: 'bg-teal-50' }
+  ];
+
   useEffect(() => {
     setMounted(true);
 
@@ -141,17 +153,6 @@ function App() {
   const completionRate = clientData.actionItems.length > 0
     ? Math.round((completedTasks.length / clientData.actionItems.length) * 100)
     : 0;
-
-  const lifeAreas = [
-    { key: 'spirituality', label: 'Spirituality', icon: Sparkles, color: 'from-purple-500 to-purple-600', textColor: 'text-purple-600', bgColor: 'bg-purple-50' },
-    { key: 'career', label: 'Career', icon: Briefcase, color: 'from-blue-500 to-blue-600', textColor: 'text-blue-600', bgColor: 'bg-blue-50' },
-    { key: 'family', label: 'Family', icon: Users, color: 'from-green-500 to-green-600', textColor: 'text-green-600', bgColor: 'bg-green-50' },
-    { key: 'relationships', label: 'Relationships', icon: Heart, color: 'from-pink-500 to-pink-600', textColor: 'text-pink-600', bgColor: 'bg-pink-50' },
-    { key: 'health', label: 'Health & Fitness', icon: Mountain, color: 'from-red-500 to-red-600', textColor: 'text-red-600', bgColor: 'bg-red-50' },
-    { key: 'personal', label: 'Personal Growth', icon: Book, color: 'from-amber-500 to-amber-600', textColor: 'text-amber-600', bgColor: 'bg-amber-50' },
-    { key: 'leisure', label: 'Fun & Leisure', icon: PartyPopper, color: 'from-indigo-500 to-indigo-600', textColor: 'text-indigo-600', bgColor: 'bg-indigo-50' },
-    { key: 'contribution', label: 'Contribution', icon: Globe, color: 'from-teal-500 to-teal-600', textColor: 'text-teal-600', bgColor: 'bg-teal-50' }
-  ];
 
   return (
     <div className="min-h-screen bg-slate-50">
